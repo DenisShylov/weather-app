@@ -1,0 +1,24 @@
+h3 {
+  margin-top: 30px;
+}
+
+.container-weather-data {
+  /* border: 10px solid whitesmoke; */
+  /* border-radius: 25px; */
+  padding: 10px;
+  justify-content: center;
+  display: flex;
+  margin-top: 50px;
+  /* align-items: center; */
+  cursor: pointer;
+}
+
+.weather-hours {
+  display: flex;
+  /* border: 5px solid whitesmoke; */
+  /* border-radius: 25px; */
+  margin-top: 30px;
+  overflow-x: auto;
+  margin: 80px;
+  width: 690px;
+}

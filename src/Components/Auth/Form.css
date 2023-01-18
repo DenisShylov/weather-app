@@ -1,0 +1,50 @@
+.wrapper {
+  text-align: center;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.auth-form-container,
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form-container {
+  border: 10px solid #f8f8ff;
+  border-radius: 30px;
+  padding: 5rem;
+}
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+}
+
+input {
+  margin: 0.5rem 0;
+  border: none;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+button {
+  border: none;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.link-btn {
+  margin-top: 20px;
+  background: none;
+  text-decoration: underline;
+  color: #fff;
+}
+
+.validate {
+  color: red;
+}

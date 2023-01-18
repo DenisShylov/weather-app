@@ -1,0 +1,13 @@
+.form-user-data {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid whitesmoke;
+  border-radius: 25px;
+  padding: 30px;
+  margin: 100px auto;
+  min-width: 450px;
+}
+
+.form-error {
+  color: #ff0000;
+}

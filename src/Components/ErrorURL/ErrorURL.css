@@ -1,0 +1,10 @@
+.error-container {
+  display: flex;
+  height: 100vh;
+}
+
+.error-item {
+  margin: auto;
+  color: white;
+  font-size: 3rem;
+}
