@@ -14,6 +14,6 @@ export const fetchSportsEvents = async () => {
     );
     return response.json();
   } catch (error) {
-    alert(error);
+    alert(error.message);
   }
 };

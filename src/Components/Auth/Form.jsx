@@ -1,21 +1,12 @@
 import React from 'react';
-import { useInput } from 'Hooks/Vallidate';
+import { useInput } from 'Hooks/useValidate';
 import { NavLink } from 'react-router-dom';
 
 import './Form.css';
 
-const Auth = ({ handleClick, title, formName }) => {
+const Form = ({ handleClick, title, formName }) => {
   const email = useInput('', { isEmpty: true, isEmail: true });
   const pass = useInput('', { isEmpty: true, minLength: 6 });
-
-  //  value-setValue inputs form
-  // const [email, setEmail] = useState('');
-  // const [pass, setPass] = useState('');
-  // console.log(title);
-  // events handler form
-  // const handleEmail = useCallback((e) => setEmail(e.target.value), []);
-
-  // const handlePassword = useCallback((e) => setPass(e.target.value), []);
 
   return (
     <div className="wrapper">
@@ -57,7 +48,7 @@ const Auth = ({ handleClick, title, formName }) => {
             type="submit"
             onClick={() => handleClick(email.value, pass.value)}
           >
-            Log In
+            {formName !== 'login' ? 'Log In' : 'Registration'}
           </button>
 
           <NavLink className="link-btn" to={`/auth/${formName}`}>
@@ -71,4 +62,4 @@ const Auth = ({ handleClick, title, formName }) => {
   );
 };
 
-export default Auth;
+export default Form;

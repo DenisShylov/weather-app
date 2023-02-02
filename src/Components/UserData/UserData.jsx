@@ -1,90 +1,79 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useCallback, useState } from 'react';
+import useLocalStorage from 'Hooks/useLocalStorage';
 
 import './UserData.css';
-const UserData = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    getValues,
-    setValue,
-  } = useForm({ mode: 'onChange' });
 
-  const handleData = useCallback((data) => {
-    localStorage.setItem(data.email, JSON.stringify(data));
-    reset();
-  }, []);
-  console.log(getValues());
-  const errorEmailElem = (
-    <div className="form-error">{errors?.email?.message}</div>
+const UserData = () => {
+  const AuthDataLocalStorage = JSON.parse(localStorage.getItem('Auth') || '');
+
+  const [name, setName] = useLocalStorage('name', '');
+  const [lastName, setLastName] = useLocalStorage('lastName', '');
+  const [phone, setPhone] = useLocalStorage('phone', '');
+  const [edit, setEdit] = useState(false);
+
+  const handlePhone = useCallback((e) => setPhone(e.target.value), [setPhone]);
+  const handleName = useCallback((e) => setName(e.target.value), [setName]);
+  const handleLastName = useCallback(
+    (e) => setLastName(e.target.value),
+    [setLastName]
   );
-  const errorNameElem = (
-    <div className="form-error">{errors?.name?.message}</div>
-  );
-  const errorLastNameElem = (
-    <div className="form-error">{errors?.lastName?.message}</div>
-  );
-  const errorPassElem = (
-    <div className="form-error">{errors?.password?.message}</div>
-  );
+  const handleEdit = useCallback(() => setEdit(!edit), [edit]);
+
+  const handleSave = useCallback(() => {
+    setLastName(JSON.parse(localStorage.getItem('lastName')));
+    setName(JSON.parse(localStorage.getItem('name')));
+    setPhone(JSON.parse(localStorage.getItem('phone')));
+    setEdit(false);
+  }, [setLastName, setPhone, setName]);
 
   return (
-    <div>
-      <h1>User Data</h1>
-      <form className="form-user-data" onSubmit={handleSubmit(handleData)}>
-        <button type="button">Edit</button>
-        <label htmlFor="email">Email*</label>
-        <input
-          {...register('email', {
-            required: 'Please enter email',
-          })}
-          type="email"
-          id="email"
-        />
-        {errors?.email && errorEmailElem}
-        <label htmlFor="phoneNumber">Phone number</label>
-        <input
-          {...register('phoneNumber', { required: true, maxLength: 13 })}
-          // value={value}
-          // onChange={(e) => setValue(e.target.value)}
-          placeholder="+380"
-          type="tel"
-          id="phoneNumber"
-        />
-        {errors?.phoneNumber?.type === 'required' && (
-          <p style={{ color: 'red' }}>This field is required</p>
-        )}
-        {errors?.phoneNumber?.type === 'maxLength' && (
-          <div style={{ color: 'red' }}>
-            Phone number cannot exceed 13 characters
-          </div>
-        )}
+    <>
+      <h3>User Data</h3>
 
-        <label htmlFor="name">Name*</label>
-        <input
-          {...register('name', { required: 'Name is required field!' })}
-          type="text"
-          id="name"
-        />
-        {errors?.name && errorNameElem}
-        <label htmlFor="lastName">Last name*</label>
-        <input
-          {...register('lastName', { required: 'last name is required' })}
-          type="text"
-        />
-        {errors?.lastName && errorLastNameElem}
-        <label htmlFor="pass">Pass*</label>
-        <input
-          {...register('password', { required: 'Password is required' })}
-          type="password"
-          id="password"
-        />
-        {errors?.password && errorPassElem}
-        <button type="submit">Save</button>
-      </form>
-    </div>
+      <div
+        className="data-container"
+        style={{ display: 'flex', flexDirection: 'column' }}
+      >
+        <span>Email: {AuthDataLocalStorage?.user?.email}</span>
+
+        {edit ? (
+          <>
+            <label htmlFor="last-name">Last Name</label>
+            <input
+              type="text"
+              id="last-name"
+              value={lastName}
+              onChange={handleLastName}
+            />
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={handleName}
+            ></input>
+            <label htmlFor="phone"> Phone:</label>
+            <input type="tel" id="phone" value={phone} onChange={handlePhone} />
+          </>
+        ) : (
+          <>
+            <span>LastName: {lastName}</span>
+            <span>Name: {name}</span>
+            <span>Phone: {phone}</span>
+          </>
+        )}
+      </div>
+
+      {edit ? (
+        <button className="user-data-btn" onClick={handleSave}>
+          Save
+        </button>
+      ) : (
+        <button className="user-data-btn" onClick={handleEdit}>
+          Edit
+        </button>
+      )}
+    </>
   );
 };
 

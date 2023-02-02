@@ -1,15 +1,13 @@
-export const SET_USER_DATA = 'SET_USER_DATA';
-export const GET_USER_DATA = 'GET_USER_DATA';
-
-export const setUserData = (data) => {
+export const AUTH_USER = 'AUTH_USER';
+export const SIGN_OUT = 'SIGN_OUT';
+export const authUser = () => {
   return {
-    type: SET_USER_DATA,
-    payload: data,
+    type: AUTH_USER,
   };
 };
 
-export const getUserData = () => {
+export const signOutUser = () => {
   return {
-    type: GET_USER_DATA,
+    type: SIGN_OUT,
   };
 };

@@ -1,0 +1,9 @@
+.autocomplete-container {
+  background: white;
+  color: black;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  border-radius: 5px;
+}

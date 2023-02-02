@@ -1,21 +1,23 @@
-import { GET_USER_DATA, SET_USER_DATA } from './auth.actions';
+import { AUTH_USER, SIGN_OUT } from './auth.actions';
 
 const initialState = {
-  authData: '',
   isAuth: false,
   isFetching: false,
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_USER_DATA:
+    case AUTH_USER:
       return {
         ...state,
-
-        authData: action.payload,
+        isAuth: true,
       };
-    case GET_USER_DATA:
-      return state;
+
+    case SIGN_OUT:
+      return {
+        ...state,
+        isAuth: false,
+      };
 
     default:
       return state;

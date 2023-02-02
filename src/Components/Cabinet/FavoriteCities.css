@@ -1,0 +1,11 @@
+.list-cities {
+  display: flex;
+}
+
+.list-cities__item {
+  margin: 5px;
+  background: #a3a3b4;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+}

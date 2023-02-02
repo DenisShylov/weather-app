@@ -1,10 +1,14 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const CricketEvent = (data) => {
-  return (
+const CricketEvent = ({ data }) => {
+  const cricketEventsData = data.cricket;
+
+  return cricketEventsData.length === 0 ? (
+    <div>Событий не найдено</div>
+  ) : (
     <>
-      {data.data.cricket.map((item) => {
+      {data.cricket.map((item) => {
         return (
           <div className="sport-events" key={uuidv4()}>
             <span>Country: {item.country};</span>

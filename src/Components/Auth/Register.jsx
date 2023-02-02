@@ -9,14 +9,13 @@ const Registr = () => {
 
   const handleRegistr = async (email, password) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password).then(
-        ({ user }) => {
-          console.log(user);
-          navigate('/auth/login');
-        }
-      );
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert('You have successfully registered');
+      navigate('/auth/login');
     } catch (error) {
-      alert(error);
+      if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
+        alert('user with this email already exists');
+      } else alert(error);
     }
   };
   return (

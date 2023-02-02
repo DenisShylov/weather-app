@@ -1,5 +1,5 @@
-import { ThemeContext } from '@emotion/react';
-import React, { useContext } from 'react';
+import { ThemeContext } from 'Context/themes-context';
+import { useContext } from 'react';
 
 const useTheme = () => {
   const value = useContext(ThemeContext);

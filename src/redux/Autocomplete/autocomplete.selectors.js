@@ -1,3 +1,3 @@
-export const autocompleteDataSelector = (state) => {
-  return state.autocompeteData.data;
-};
+// export const autocompleteDataSelector = (state) => {
+//   return state.autocompeteData.data;
+// };

@@ -2,20 +2,25 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
-import { dataSelector } from 'redux/Weather/weather.selectors';
+import {
+  dataSelector,
+  switchUnitsSelector,
+} from 'redux/Weather/weather.selectors';
 import { fetchingWeatherHistory } from 'redux/WeatherHistory/weatherHistory.actions';
 import { historyDataSelector } from 'redux/WeatherHistory/weatherHistory.selectors';
 import HourForecast from 'Components/HourForecast/HourForecast';
 
 const WeatherHistory = () => {
   const dispatch = useDispatch();
+  const units = useSelector(switchUnitsSelector);
 
   const city = useSelector((state) => dataSelector(state).location.name);
   const [dateTo, setDateTo] = useState(moment().format('yyyy-MM-DD'));
   const [dateEnd, setDateEnd] = useState(
     moment().add(1, 'days').format('yyyy-MM-DD')
   );
-
+  console.log('dateTo', dateTo);
+  console.log('dateEnd', dateEnd);
   const [onHour, setOnHour] = useState(false);
   const [arrIndex, setArrIndex] = useState(0);
 
@@ -44,9 +49,9 @@ const WeatherHistory = () => {
     }
   }, []);
 
-  useMemo(() => {
+  useEffect(() => {
     dispatch(fetchingWeatherHistory(city, dateTo, dateEnd));
-  }, [dateTo, dateEnd]);
+  }, [dateTo, dateEnd, dispatch, city]);
 
   const historyData = useSelector((state) => historyDataSelector(state));
 
@@ -56,7 +61,7 @@ const WeatherHistory = () => {
     setArrIndex(e.target.id);
     setOnHour(true);
   }, []);
-
+  console.log('historyData', historyData);
   return (
     <>
       <h3>История погоды в г.{city}</h3>
@@ -82,8 +87,23 @@ const WeatherHistory = () => {
                 <div key={uuidv4()} className="weather-card" id={index}>
                   <p>{moment(item.date).format('D MMMM')}</p>
                   <img src={item.day.condition.icon} alt="weatherIcon" />
-                  <p>Мин.темп {Math.round(item.day.mintemp_c)} °C</p>
-                  <p>Макс.темп {Math.round(item.day.maxtemp_c)} °C</p>
+
+                  <p>
+                    {`Мин.темп
+                    ${
+                      units
+                        ? Math.round(item.day.mintemp_c) + ' °C'
+                        : Math.round(item.day.mintemp_f) + ' °F'
+                    }`}
+                  </p>
+                  <p>
+                    {`Макс.темп
+                    ${
+                      units
+                        ? Math.round(item.day.maxtemp_c) + ' °C'
+                        : Math.round(item.day.maxtemp_f) + ' °F'
+                    }`}
+                  </p>
                 </div>
               );
             })
@@ -98,7 +118,7 @@ const WeatherHistory = () => {
             )}
           </h3>
           <div className="weather-hours">
-            <HourForecast data={historyDataHour} />
+            <HourForecast data={historyDataHour} units={units} />
           </div>
         </>
       )}

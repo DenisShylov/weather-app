@@ -2,21 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSportData } from 'redux/SportEvents/sportEvents.actions';
 import { sportDataSelector } from 'redux/SportEvents/sportEvents.selectors';
-import { v4 as uuidv4 } from 'uuid';
+
 import CricketEvent from './CricketEvent';
 import FootbalEvent from './FootbalEvent';
 import GolfEvent from './GolfEvent';
 
 import './SportEvents.css';
+
 const SportsEvents = () => {
   const dispatch = useDispatch();
 
   const [event, setEvent] = useState('');
+
   useEffect(() => {
     dispatch(getSportData());
-  }, []);
+  }, [dispatch]);
 
-  const data = useSelector((state) => sportDataSelector(state));
+  const data = useSelector(sportDataSelector);
 
   const handleEvents = (e) => {
     if (e.target.textContent === 'Football') {

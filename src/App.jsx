@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
@@ -19,28 +19,67 @@ import UserData from 'Components/UserData/UserData.jsx';
 import Cabinet from 'Components/Cabinet/Cabinet.jsx';
 import { ThemeProvider } from 'Context/themes-context.js';
 import Header from 'Components/Header/Header.jsx';
+import Layout from 'Components/Layout/Layout.jsx';
+import AuthRequire from 'Components/Auth/AuthRequire.jsx';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <Header />
         <ThemeProvider>
-          <Cabinet />
-        </ThemeProvider>
+          <Layout>
+            <Header />
 
-        <Routes>
-          <Route exact path="/" element={<Greetings />} />
-          <Route path="/user-data" element={<UserData />} />
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/registration" element={<Registr />} />
-          <Route path="*" element={<ErrorURL />} />
-          <Route path="/homepage" element={<Search />} />
-          <Route path="/citypage" element={<CityPage />} />
-          <Route path="/history-weather" element={<WeatherHistory />} />
-          <Route path="/sports-events" element={<SportsEvents />} />
-          <Route path="/cabinet" element={<Cabinet />} />
-        </Routes>
+            <Routes>
+              <Route path="/" element={<Greetings />} />
+              <Route
+                path="/homepage"
+                element={
+                  <AuthRequire>
+                    <Search />
+                  </AuthRequire>
+                }
+              />
+
+              <Route
+                path="/cabinet"
+                element={
+                  <AuthRequire>
+                    <Cabinet />
+                  </AuthRequire>
+                }
+              />
+              <Route path="/user-data" element={<UserData />} />
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/registration" element={<Registr />} />
+              <Route
+                path="homepage/citypage/:city"
+                element={
+                  <AuthRequire>
+                    <CityPage />
+                  </AuthRequire>
+                }
+              />
+              <Route
+                path="/history-weather"
+                element={
+                  <AuthRequire>
+                    <WeatherHistory />
+                  </AuthRequire>
+                }
+              />
+              <Route
+                path="/sports-events"
+                element={
+                  <AuthRequire>
+                    <SportsEvents />
+                  </AuthRequire>
+                }
+              />
+              <Route path="*" element={<ErrorURL />} />
+            </Routes>
+          </Layout>
+        </ThemeProvider>
       </Provider>
     </BrowserRouter>
   );

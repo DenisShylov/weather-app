@@ -7,7 +7,6 @@ const options = {
 };
 
 export const getWeatherHistory = async (city, dateTo, dateEnd) => {
-  console.log(city, dateTo, dateEnd);
   return await fetch(
     `https://weatherapi-com.p.rapidapi.com/history.json?q=${city}&dt=${dateTo}&end_dt=${dateEnd}`,
     options
@@ -16,5 +15,3 @@ export const getWeatherHistory = async (city, dateTo, dateEnd) => {
     .then((data) => data)
     .catch((err) => console.error(err));
 };
-
-// console.log(getWeatherHistory('poltava', '2023-01-08', ' 2023-01-10'));

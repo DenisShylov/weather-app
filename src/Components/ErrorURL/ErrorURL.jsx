@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './ErrorURL.css';
+
 const ErrorURL = () => {
   return (
     <div className="error-container">
