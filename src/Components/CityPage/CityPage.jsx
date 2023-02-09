@@ -18,6 +18,8 @@ import './CityPage.css';
 const CityPage = () => {
   const dispatch = useDispatch();
 
+  const localStorageUnits = JSON.parse(localStorage.getItem('metric'));
+
   const [onHour, setOnHour] = useState(false);
   const [arrIndex, setArrIndex] = useState(0);
 
@@ -38,11 +40,11 @@ const CityPage = () => {
 
   const handleAddCiti = useCallback(() => {
     if (favoriteCities.includes(location.name)) {
-      alert(`${location.name} is already in the list of favorites`);
+      alert(`${location.name} уже есть в списке избранных`);
       return;
     } else {
       dispatch(addCities(location.name));
-      alert('You have added a city to the list of favorite cities');
+      alert('Вы добавили город в список избранных городов');
     }
   }, [dispatch, location.name, favoriteCities]);
 
@@ -67,7 +69,7 @@ const CityPage = () => {
               <p id={index}>
                 {`Мин.темп
                 ${
-                  units
+                  localStorageUnits
                     ? Math.round(item.day.mintemp_c) + ' °C'
                     : Math.round(item.day.mintemp_f) + ' °F'
                 }
@@ -76,7 +78,7 @@ const CityPage = () => {
               <p id={index}>
                 {`Макс.темп 
                 ${
-                  units
+                  localStorageUnits
                     ? Math.round(item.day.maxtemp_c) + ' °C'
                     : Math.round(item.day.maxtemp_f) + ' °F'
                 }`}
@@ -93,7 +95,11 @@ const CityPage = () => {
           </h3>
 
           <div className="weather-hours">
-            <HourForecast data={hourArray} history={history} units={units} />
+            <HourForecast
+              data={hourArray}
+              history={history}
+              units={localStorageUnits}
+            />
           </div>
         </>
       )}

@@ -11,10 +11,10 @@ const FootbalEvent = ({ data }) => {
       {data.football.map((item) => {
         return (
           <div className="sport-events" key={uuidv4()}>
-            <span>Country: {item.country};</span>
-            <span>Tournament: {item.tournament};</span>
-            <span>Stadium: {item.stadium};</span>
-            <span>Start: {item.start};</span>
+            <span>Страна: {item.country};</span>
+            <span>Турнир: {item.tournament};</span>
+            <span>Стадион: {item.stadium};</span>
+            <span>Начало: {item.start};</span>
           </div>
         );
       })}

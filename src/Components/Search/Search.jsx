@@ -1,7 +1,7 @@
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ShowSpinner from 'Components/ShowSpinner/ShowSpinner';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import * as stateSelector from 'redux/Weather/weather.selectors';
@@ -22,9 +22,14 @@ const Search = () => {
   const isFetching = useSelector(stateSelector.fetchingSelector);
 
   const [city, setCity] = useState('');
+  const reduxCity = useSelector(stateSelector.setCitiSelector);
 
-  const handleChange = useCallback((e, index) => {
-    return setCity(setCity[index] || e.target.value);
+  useEffect(() => {
+    setCity(reduxCity);
+  }, [reduxCity]);
+
+  const handleChange = useCallback((e) => {
+    return setCity(e.target.value);
   }, []);
 
   const handleSearch = useCallback(async () => {
@@ -62,7 +67,8 @@ const Search = () => {
         </Col>
         <Autocomplete city={city} search={handleSearch} setCity={setCity} />
       </Row>
-      <FavoriteCities search={handleSearch} setCity={setCity} />
+      <FavoriteCities setCity={setCity} />
+
       {isFetching && <ShowSpinner />}
     </>
   );

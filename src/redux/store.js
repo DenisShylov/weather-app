@@ -2,7 +2,6 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from './Auth/auth.reducer';
 import weatherReducer from './Weather/weather.reducer';
-import autocompleteReducer from './Autocomplete/autocomplete.reducer';
 import historyReducer from './WeatherHistory/weatherHistory.reducer';
 import sportEventsReducer from './SportEvents/sportEvents.reducer';
 
@@ -14,7 +13,9 @@ const reducers = combineReducers({
   history: historyReducer,
   sportEvents: sportEventsReducer,
 });
+
 // localStorage.clear();
+
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
 store.subscribe(() => {

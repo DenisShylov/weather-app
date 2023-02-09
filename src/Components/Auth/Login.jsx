@@ -37,7 +37,7 @@ const Login = () => {
       const userInvalid = 'Firebase: Error (auth/invalid-email).';
       const wrongPassworld = 'Firebase: Error (auth/wrong-password).';
       if (error.message === wrongPassworld) {
-        alert('you entered the wrong password');
+        alert('вы ввели неверный пароль');
       } else if (
         error.message === userNotFound ||
         error.message === userInvalid
@@ -48,7 +48,11 @@ const Login = () => {
     }
   };
   return (
-    <Form handleClick={handleLogin} title={'Login'} formName={'registration'} />
+    <Form
+      handleClick={handleLogin}
+      title={'авторизации'}
+      formName={'registration'}
+    />
   );
 };
 

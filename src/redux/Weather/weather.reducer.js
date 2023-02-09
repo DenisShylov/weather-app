@@ -29,7 +29,10 @@ const weatherReducer = (state = initialState, action) => {
       };
 
     case SWITCH_UNITS:
-      return { ...state, isMetric: !state.isMetric };
+      return {
+        ...state,
+        isMetric: !state.isMetric,
+      };
 
     case ADD_CITIES:
       return {

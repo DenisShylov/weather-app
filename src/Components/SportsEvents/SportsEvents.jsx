@@ -21,23 +21,23 @@ const SportsEvents = () => {
   const data = useSelector(sportDataSelector);
 
   const handleEvents = (e) => {
-    if (e.target.textContent === 'Football') {
+    if (e.target.textContent === 'Футбол') {
       setEvent('Football');
     }
-    if (e.target.textContent === 'Golf') {
+    if (e.target.textContent === 'Гольф') {
       setEvent('Golf');
     }
-    if (e.target.textContent === 'Cricket') {
+    if (e.target.textContent === 'Крикет') {
       setEvent('Cricket');
     }
   };
   return (
     <>
-      <div className="sport-events-title">World Sport Events</div>
+      <div className="sport-events-title">Мировые спортивные события</div>
       <div className="sport-events-button" onClick={handleEvents}>
-        <button className="sport-events-button-group">Cricket</button>
-        <button className="sport-events-button-group">Football</button>
-        <button className="sport-events-button-group">Golf</button>
+        <button className="sport-events-button-group">Крикет</button>
+        <button className="sport-events-button-group">Футбол</button>
+        <button className="sport-events-button-group">Гольф</button>
       </div>
       {event === 'Football' && (
         <div className="container-sport-events">

@@ -5,7 +5,7 @@ import useTheme from 'Hooks/useTheme';
 const Layout = ({ children }) => {
   const { isDark } = useTheme();
 
-  const className = isDark ? 'layout' : 'layout dark';
+  const className = isDark ? 'layout dark' : 'layout';
 
   return <div className={className}>{children}</div>;
 };

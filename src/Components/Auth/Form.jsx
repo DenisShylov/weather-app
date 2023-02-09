@@ -12,34 +12,34 @@ const Form = ({ handleClick, title, formName }) => {
     <div className="wrapper">
       <div className="auth-form-container">
         <div className="login-form">
-          <h3>{`${title} form`}</h3>
+          <h3>{`Форма ${title} `}</h3>
 
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Эл.почта</label>
           {email.isDirty && email.isEmpty && (
-            <span className="validate">field must not be empty</span>
+            <span className="validate">поле не должно быть пустым</span>
           )}
           {email.isDirty && email.emailError && (
-            <span className="validate">not correct email</span>
+            <span className="validate">не корректный email</span>
           )}
           <input
             type="text"
             name="email"
             id="email"
             value={email.value}
-            placeholder="Enter email..."
+            placeholder="Введите email..."
             onChange={email.handleChange}
             onBlur={email.handleBlur}
           />
 
-          <label htmlFor="pass">Password</label>
+          <label htmlFor="pass">Пароль</label>
           {pass.isDirty && pass.minLengthError && (
-            <div className="validate">min length 6</div>
+            <div className="validate">минимум 6 символов</div>
           )}
           <input
             type="password"
             value={pass.value}
             id="pass"
-            placeholder="Enter password..."
+            placeholder="Введите пароль..."
             onChange={pass.handleChange}
             onBlur={pass.handleBlur}
           />
@@ -48,13 +48,13 @@ const Form = ({ handleClick, title, formName }) => {
             type="submit"
             onClick={() => handleClick(email.value, pass.value)}
           >
-            {formName !== 'login' ? 'Log In' : 'Registration'}
+            {formName !== 'login' ? 'Авторизоваться' : 'Зарегистрироваться'}
           </button>
 
           <NavLink className="link-btn" to={`/auth/${formName}`}>
             {formName === 'registration'
-              ? 'Don`t have an account? Register here'
-              : 'Already have an account? Login here'}
+              ? 'Нет аккаунта? Зарегистрируйтесь '
+              : 'У вас уже есть аккаунт? Нажмите для авторизации'}
           </NavLink>
         </div>
       </div>

@@ -1,26 +1,21 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  dataSelector,
-  switchUnitsSelector,
-} from 'redux/Weather/weather.selectors';
+import { dataSelector } from 'redux/Weather/weather.selectors';
 import { fetchingWeatherHistory } from 'redux/WeatherHistory/weatherHistory.actions';
 import { historyDataSelector } from 'redux/WeatherHistory/weatherHistory.selectors';
 import HourForecast from 'Components/HourForecast/HourForecast';
 
 const WeatherHistory = () => {
   const dispatch = useDispatch();
-  const units = useSelector(switchUnitsSelector);
-
+  const localStorageUnits = JSON.parse(localStorage.getItem('metric'));
   const city = useSelector((state) => dataSelector(state).location.name);
   const [dateTo, setDateTo] = useState(moment().format('yyyy-MM-DD'));
   const [dateEnd, setDateEnd] = useState(
     moment().add(1, 'days').format('yyyy-MM-DD')
   );
-  console.log('dateTo', dateTo);
-  console.log('dateEnd', dateEnd);
+
   const [onHour, setOnHour] = useState(false);
   const [arrIndex, setArrIndex] = useState(0);
 
@@ -38,16 +33,22 @@ const WeatherHistory = () => {
     }
   }, []);
 
-  const handleDateEnd = useCallback((e) => {
-    setDateEnd(e.target.value);
+  const handleDateEnd = useCallback(
+    (e) => {
+      setDateEnd(e.target.value);
 
-    if (moment(e.target.value).format('DD') - moment(dateTo).format('DD') > 2) {
-      alert(
-        'Вы не можете посмотреть погоду более чем на 3 дня вперед от текущей даты'
-      );
-      setDateEnd(moment().add(2, 'days').format('yyyy-MM-DD'));
-    }
-  }, []);
+      if (
+        moment(e.target.value).format('DD') - moment(dateTo).format('DD') >
+        2
+      ) {
+        alert(
+          'Вы не можете посмотреть погоду более чем на 3 дня вперед от текущей даты'
+        );
+        setDateEnd(moment().add(2, 'days').format('yyyy-MM-DD'));
+      }
+    },
+    [dateTo]
+  );
 
   useEffect(() => {
     dispatch(fetchingWeatherHistory(city, dateTo, dateEnd));
@@ -61,10 +62,10 @@ const WeatherHistory = () => {
     setArrIndex(e.target.id);
     setOnHour(true);
   }, []);
-  console.log('historyData', historyData);
+
   return (
     <>
-      <h3>История погоды в г.{city}</h3>
+      <h3>История погоды в г. {city}</h3>
 
       <div className="input-box">
         <input
@@ -91,7 +92,7 @@ const WeatherHistory = () => {
                   <p>
                     {`Мин.темп
                     ${
-                      units
+                      localStorageUnits
                         ? Math.round(item.day.mintemp_c) + ' °C'
                         : Math.round(item.day.mintemp_f) + ' °F'
                     }`}
@@ -99,7 +100,7 @@ const WeatherHistory = () => {
                   <p>
                     {`Макс.темп
                     ${
-                      units
+                      localStorageUnits
                         ? Math.round(item.day.maxtemp_c) + ' °C'
                         : Math.round(item.day.maxtemp_f) + ' °F'
                     }`}
@@ -118,7 +119,7 @@ const WeatherHistory = () => {
             )}
           </h3>
           <div className="weather-hours">
-            <HourForecast data={historyDataHour} units={units} />
+            <HourForecast data={historyDataHour} units={localStorageUnits} />
           </div>
         </>
       )}

@@ -10,16 +10,16 @@ const Registr = () => {
   const handleRegistr = async (email, password) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      alert('You have successfully registered');
+      alert('Вы успешно зарегистрировались');
       navigate('/auth/login');
     } catch (error) {
       if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
-        alert('user with this email already exists');
+        alert('пользователь с таким адресом электронной почты уже существует');
       } else alert(error);
     }
   };
   return (
-    <Form handleClick={handleRegistr} title="Registration" formName={'login'} />
+    <Form handleClick={handleRegistr} title="регистрации" formName={'login'} />
   );
 };
 export default Registr;

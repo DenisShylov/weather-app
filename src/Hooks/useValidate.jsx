@@ -18,6 +18,7 @@ export const useInput = (initialValue, validations) => {
 export const useValidation = (value, validations) => {
   const [isEmpty, setIsEmpty] = useState(true);
   const [minLengthError, setMinLengthError] = useState(false);
+  const [maxLengthError, setMaxLengthError] = useState(false);
   const [emailError, setEmailError] = useState(false);
 
   useEffect(() => {
@@ -27,6 +28,12 @@ export const useValidation = (value, validations) => {
           value.length < validations[validation]
             ? setMinLengthError(true)
             : setMinLengthError(false);
+          break;
+
+        case 'maxLength':
+          value.length > validations[validation]
+            ? setMaxLengthError(true)
+            : setMaxLengthError(false);
           break;
 
         case 'isEmpty':
@@ -46,5 +53,5 @@ export const useValidation = (value, validations) => {
     }
   }, [value]);
 
-  return { isEmpty, minLengthError, emailError };
+  return { isEmpty, minLengthError, maxLengthError, emailError };
 };

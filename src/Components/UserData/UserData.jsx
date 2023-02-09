@@ -2,16 +2,17 @@ import React, { useCallback, useState } from 'react';
 import useLocalStorage from 'Hooks/useLocalStorage';
 
 import './UserData.css';
+import { useInput } from 'Hooks/useValidate';
 
 const UserData = () => {
   const AuthDataLocalStorage = JSON.parse(localStorage.getItem('Auth') || '');
+  const tel = useInput('', { minLength: 7, maxLength: 12 });
 
   const [name, setName] = useLocalStorage('name', '');
   const [lastName, setLastName] = useLocalStorage('lastName', '');
-  const [phone, setPhone] = useLocalStorage('phone', '');
+  useLocalStorage('phone', tel.value);
   const [edit, setEdit] = useState(false);
 
-  const handlePhone = useCallback((e) => setPhone(e.target.value), [setPhone]);
   const handleName = useCallback((e) => setName(e.target.value), [setName]);
   const handleLastName = useCallback(
     (e) => setLastName(e.target.value),
@@ -22,55 +23,70 @@ const UserData = () => {
   const handleSave = useCallback(() => {
     setLastName(JSON.parse(localStorage.getItem('lastName')));
     setName(JSON.parse(localStorage.getItem('name')));
-    setPhone(JSON.parse(localStorage.getItem('phone')));
+    JSON.parse(localStorage.getItem('phone'));
     setEdit(false);
-  }, [setLastName, setPhone, setName]);
-
+  }, [setLastName, tel.value, setName]);
+  console.log(tel.maxLengthError);
+  console.log('min', tel.minLengthError);
   return (
     <>
-      <h3>User Data</h3>
+      <h3>Данные пользователя</h3>
 
-      <div
-        className="data-container"
-        style={{ display: 'flex', flexDirection: 'column' }}
-      >
-        <span>Email: {AuthDataLocalStorage?.user?.email}</span>
+      <div className="data-container">
+        <span>Эл.почта: {AuthDataLocalStorage?.user?.email}</span>
 
         {edit ? (
           <>
-            <label htmlFor="last-name">Last Name</label>
+            <label htmlFor="last-name">Фамилия</label>
             <input
               type="text"
               id="last-name"
               value={lastName}
               onChange={handleLastName}
             />
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">Имя:</label>
             <input
               type="text"
               id="name"
               value={name}
               onChange={handleName}
             ></input>
-            <label htmlFor="phone"> Phone:</label>
-            <input type="tel" id="phone" value={phone} onChange={handlePhone} />
+            <label htmlFor="phone"> Телефон:</label>
+            {tel.isDirty && tel.minLengthError && (
+              <span className="validate">
+                {tel.minLengthError ? 'минимум 7 символов' : ''}
+              </span>
+            )}
+
+            {tel.isDirty && tel.maxLengthError && (
+              <span className="validate">
+                {tel.maxLengthError ? 'максимум 12 символов' : ''}
+              </span>
+            )}
+            <input
+              type="tel"
+              id="phone"
+              value={tel.value}
+              onChange={tel.handleChange}
+              onBlur={tel.handleBlur}
+            />
           </>
         ) : (
           <>
-            <span>LastName: {lastName}</span>
-            <span>Name: {name}</span>
-            <span>Phone: {phone}</span>
+            <span>Фамилия: {lastName}</span>
+            <span>Имя: {name}</span>
+            <span>Телефон: {tel.value}</span>
           </>
         )}
       </div>
 
       {edit ? (
         <button className="user-data-btn" onClick={handleSave}>
-          Save
+          Сохранить
         </button>
       ) : (
         <button className="user-data-btn" onClick={handleEdit}>
-          Edit
+          Редактировать
         </button>
       )}
     </>

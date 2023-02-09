@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import './FavoriteCities.css';
 
-const FavoriteCities = ({ search, setCity }) => {
+const FavoriteCities = ({ setCity }) => {
   const favoriteCities = useSelector(favoriteCitiesSelector);
   const dispatch = useDispatch();
   const city = useSelector(setCitiSelector);
@@ -18,9 +18,8 @@ const FavoriteCities = ({ search, setCity }) => {
     (index) => {
       dispatch(setCiti(favoriteCities[index]));
       setCity(city);
-      search();
     },
-    [dispatch, favoriteCities, setCity, search, city]
+    [dispatch, favoriteCities, setCity, city]
   );
   return (
     <>

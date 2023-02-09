@@ -3,7 +3,6 @@ import { GET_HISTORY_DATA } from './weatherHistory.actions';
 
 const initialState = {
   history: '',
-  isFetching: false,
 };
 
 const historyReducer = (state = initialState, action) => {
@@ -11,14 +10,11 @@ const historyReducer = (state = initialState, action) => {
     case SHOW_SPINNER:
       return {
         ...state,
-        isFetching: true,
       };
     case GET_HISTORY_DATA:
-      console.log('action', action.payload);
       return {
         ...state,
         history: action.payload,
-        isFetching: false,
       };
 
     default:
