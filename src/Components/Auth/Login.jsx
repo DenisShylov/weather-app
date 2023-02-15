@@ -42,7 +42,7 @@ const Login = () => {
         error.message === userNotFound ||
         error.message === userInvalid
       ) {
-        alert('User not found');
+        alert('Пользователь не найден');
         navigate('/auth/registration');
       } else alert(error.message);
     }

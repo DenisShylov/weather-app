@@ -26,8 +26,7 @@ const UserData = () => {
     JSON.parse(localStorage.getItem('phone'));
     setEdit(false);
   }, [setLastName, tel.value, setName]);
-  console.log(tel.maxLengthError);
-  console.log('min', tel.minLengthError);
+
   return (
     <>
       <h3>Данные пользователя</h3>

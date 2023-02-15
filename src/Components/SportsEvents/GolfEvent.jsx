@@ -1,5 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
+
 const GolfEvent = ({ data }) => {
   const golfEventsData = data.golf;
 
@@ -17,6 +19,10 @@ const GolfEvent = ({ data }) => {
       );
     })
   );
+};
+
+GolfEvent.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default GolfEvent;

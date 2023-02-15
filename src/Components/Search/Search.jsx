@@ -1,17 +1,15 @@
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ShowSpinner from 'Components/ShowSpinner/ShowSpinner';
 import React, { useCallback, useEffect, useState } from 'react';
+import ShowSpinner from 'Components/ShowSpinner/ShowSpinner';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import * as stateSelector from 'redux/Weather/weather.selectors';
 import * as weatherActions from 'redux/Weather/weather.actions';
+import { GoSearch } from 'react-icons/go';
 import { fetchingWeatherHistory } from 'redux/WeatherHistory/weatherHistory.actions';
 import moment from 'moment';
 import { useLocation, useNavigate } from 'react-router-dom';
 import FavoriteCities from 'Components/Cabinet/FavoriteCities';
 import Autocomplete from 'Components/Autocompele/Autocomplete';
-
 import './Search.css';
 
 const Search = () => {
@@ -59,11 +57,7 @@ const Search = () => {
             onChange={handleChange}
           />
 
-          <FontAwesomeIcon
-            className="search-icon"
-            icon={faMagnifyingGlass}
-            onClick={handleSearch}
-          />
+          <GoSearch className="search-icon" onClick={handleSearch} />
         </Col>
         <Autocomplete city={city} search={handleSearch} setCity={setCity} />
       </Row>

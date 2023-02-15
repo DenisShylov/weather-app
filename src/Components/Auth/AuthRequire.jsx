@@ -7,10 +7,6 @@ const AuthRequire = ({ children }) => {
   const isAuth = useSelector(authUserSelector);
   const navigate = useNavigate();
 
-  const localStorageAuth = localStorage.setItem(
-    'isAuth',
-    JSON.stringify(isAuth)
-  );
   useEffect(() => {
     if (!isAuth) {
       navigate('/auth/login');

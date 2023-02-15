@@ -6,6 +6,7 @@ import {
   setCitiSelector,
 } from 'redux/Weather/weather.selectors';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 
 import './FavoriteCities.css';
 
@@ -38,6 +39,10 @@ const FavoriteCities = ({ setCity }) => {
       </div>
     </>
   );
+};
+
+FavoriteCities.propTypes = {
+  setCity: PropTypes.func.isRequired,
 };
 
 export default FavoriteCities;

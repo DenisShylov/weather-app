@@ -1,6 +1,7 @@
 import moment from 'moment/moment';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 
 import './HourForecast.css';
 
@@ -47,6 +48,11 @@ const HourForecast = ({ data, units }) => {
       })}
     </>
   );
+};
+
+HourForecast.propTypes = {
+  data: PropTypes.array.isRequired,
+  units: PropTypes.bool.isRequired,
 };
 
 export default HourForecast;

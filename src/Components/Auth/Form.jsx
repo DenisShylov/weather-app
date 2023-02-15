@@ -1,6 +1,7 @@
 import React from 'react';
 import { useInput } from 'Hooks/useValidate';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import './Form.css';
 
@@ -60,6 +61,12 @@ const Form = ({ handleClick, title, formName }) => {
       </div>
     </div>
   );
+};
+
+Form.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired,
 };
 
 export default Form;

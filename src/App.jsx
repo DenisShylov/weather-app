@@ -10,7 +10,7 @@ import Registr from 'Components/Auth/Register';
 import ErrorURL from 'Components/ErrorURL/ErrorURL';
 import CityPage from 'Components/CityPage/CityPage';
 
-import './firebase/firebase.js';
+import './Firebase/firebase.js';
 import 'App.css';
 import Search from 'Components/Search/Search.jsx';
 import WeatherHistory from 'Components/WeatherHistory/WeatherHistory.jsx';

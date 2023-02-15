@@ -1,6 +1,7 @@
 import { getAutocomplete } from 'Gateways/geoAPI';
 import React, { useCallback, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 
 import './Autocomplete.css';
 
@@ -59,6 +60,12 @@ const AutocompleteField = ({ search, city, setCity }) => {
       </div>
     </>
   );
+};
+
+AutocompleteField.propTypes = {
+  search: PropTypes.func.isRequired,
+  city: PropTypes.string.isRequired,
+  setCity: PropTypes.func.isRequired,
 };
 
 export default AutocompleteField;
