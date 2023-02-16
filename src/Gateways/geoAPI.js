@@ -1,18 +1,15 @@
-const options = {
-  method: 'GET',
-  headers: {
-    'X-RapidAPI-Key': '324f433126mshdc928de9fb9fb30p1b93e5jsncb83a7919244',
-    'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com',
-  },
-};
+import options from './Constant/Options';
 
 export const getAutocomplete = async (city) => {
   try {
     const response = await fetch(
-      `https://weatherapi-com.p.rapidapi.com/search.json?q=${city}`,
+      `https://weatherapi-com.p.rapidapi.com/search.json?q=${
+        city[0].toUpperCase() + city.slice(1)
+      }`,
       options
     );
-    return response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     alert(error.message);
   }

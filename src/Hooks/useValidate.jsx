@@ -47,11 +47,12 @@ export const useValidation = (value, validations) => {
             ? setEmailError(false)
             : setEmailError(true);
 
+        // eslint-disable-next-line no-fallthrough
         default:
           break;
       }
     }
-  }, [value]);
+  }, [value, validations]);
 
   return { isEmpty, minLengthError, maxLengthError, emailError };
 };

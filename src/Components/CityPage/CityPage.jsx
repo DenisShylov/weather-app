@@ -27,7 +27,7 @@ const CityPage = () => {
   const history = useSelector(historyDataSelector);
 
   const { location, forecast } = data;
-  const units = useSelector(stateSelector.switchUnitsSelector);
+
   const hourArray = forecast.forecastday[+arrIndex].hour;
   const forecastDay = forecast.forecastday;
 
